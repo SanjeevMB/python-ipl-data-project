@@ -9,7 +9,7 @@ with open('../data/matches.csv', 'r') as matchCsvFile:
 
     for match in matchDataList:
 
-        if match['season'] in seasonId:
+        if match['id'] in seasonId:
 
             pass
 
