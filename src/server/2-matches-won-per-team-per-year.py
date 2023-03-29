@@ -23,13 +23,7 @@ with open('../data/matches.csv', 'r') as csvFile:
 
             matchesWonPerTeamPerYear[match['winner']] = {}
 
-            if match['season'] in matchesWonPerTeamPerYear[match['winner']]:
-
-                matchesWonPerTeamPerYear[match['winner']][match['season']] += 1
-
-            else:
-
-                matchesWonPerTeamPerYear[match['winner']][match['season']] = 1
+            matchesWonPerTeamPerYear[match['winner']][match['season']] = 1
 
     strData = dumps(matchesWonPerTeamPerYear)
 
