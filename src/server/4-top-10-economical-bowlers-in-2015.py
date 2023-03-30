@@ -49,7 +49,7 @@ with open('../data/deliveries.csv', 'r') as deliveryCsvFile:
 
     sortedEconomyList = dict(sorted(bowlerEconomyList.items(), key = lambda x: x[1]))
 
-    topTenEconomyBowlers = dict(list(sortedEconomyList.items())[1:11])
+    topTenEconomyBowlers = dict(list(sortedEconomyList.items())[0:10])
 
 with open('../public/output/4-top-10-economical-bowler-in-2015.json', 'w') as topTenEconomyBowlersJson:
 
