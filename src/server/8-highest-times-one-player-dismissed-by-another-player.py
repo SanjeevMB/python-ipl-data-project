@@ -21,9 +21,9 @@ with open('../data/deliveries.csv', 'r') as deliveryCsvFile:
 
                     allDismissalForAllPlayers[dismiss['player_dismissed']][dismiss['fielder']] += 1
 
-                elif (dismiss['dismissal_kind'] == 'lbw' or dismiss['dismissal_kind'] == 'bowled' or dismiss['dismissal_kind'] == 'caught and bowled' or dismiss['dismissal_kind'] == 'caught') and dismiss['bowler'] in allDismissalForAllPlayers:
+                elif (dismiss['dismissal_kind'] == 'lbw' or dismiss['dismissal_kind'] == 'bowled' or dismiss['dismissal_kind'] == 'caught and bowled' or dismiss['dismissal_kind'] == 'caught') and dismiss['bowler'] in allDismissalForAllPlayers[dismiss['player_dismissed']]:
 
-                    allDismissalForAllPlayers[dismiss['player_dismissed']][dismiss['bowler']] = 1           
+                    allDismissalForAllPlayers[dismiss['player_dismissed']][dismiss['bowler']] += 1           
 
                 elif dismiss['dismissal_kind'] == 'run out' or dismiss['dismissal_kind'] == 'stumped':
 
@@ -46,7 +46,7 @@ with open('../data/deliveries.csv', 'r') as deliveryCsvFile:
                     allDismissalForAllPlayers[dismiss['player_dismissed']][dismiss['bowler']] = 1 
 
 dismissedPlayer = ''
-filder = ''
+filderOrBowler = ''
 highestTime =  0
 
 highestDismissedPlayer = {}
@@ -59,11 +59,13 @@ for player in allDismissalForAllPlayers:
 
             dismissedPlayer = player
 
-            filder = anotherPlayer
+            filderOrBowler = anotherPlayer
 
             highestTime = allDismissalForAllPlayers[player][anotherPlayer]
 
-highestDismissedPlayer[dismissedPlayer] = highestTime
+highestDismissedPlayer['dismissedPlayer'] = dismissedPlayer
+highestDismissedPlayer['dismissedBy'] = filderOrBowler
+highestDismissedPlayer['dismissCount'] = highestTime
 
 with open('../public/output/8-highest-times-one-player-dismissed-by-another-player.json', 'w') as highestDismissedPlayerJson:
 
