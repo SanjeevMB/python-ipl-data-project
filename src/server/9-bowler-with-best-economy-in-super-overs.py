@@ -1,15 +1,37 @@
 import csv
 from json import *
 
-with open('../data/deliveries.csv', 'r') as deliveryCsvFile:
+try:
 
-    deliveryDataList = list(csv.DictReader(deliveryCsvFile))
+    with open('../data/deliveries.csv', 'r') as deliveryCsvFile:
 
-    bowlerBowlCount = {}
+        deliveryDataList = list(csv.DictReader(deliveryCsvFile))
 
-    bowlerRunCount = {}
+    print('data stored successfully in deliveryDataList')
 
-    bowlerEconomySuperOver = {}
+except FileNotFoundError:
+
+    print('Error : write the correct file name')
+
+except ValueError:
+
+    print('Error : Incorrect value of file mode')
+
+except NameError:
+
+    print('Error: wirte the correct name')
+
+except AttributeError:
+
+    print('Error : write a correct method')
+
+bowlerBowlCount = {}
+
+bowlerRunCount = {}
+
+bowlerEconomySuperOver = {}
+
+try:
 
     for match in deliveryDataList:
 
@@ -30,11 +52,43 @@ with open('../data/deliveries.csv', 'r') as deliveryCsvFile:
                 bowlerRunCount[match['bowler']] = 1
 
                 bowlerEconomySuperOver[match['bowler']] = round((bowlerBowlCount[match['bowler']]/bowlerRunCount[match['bowler']])*6, 2)
+                
+except TypeError:
 
-    sortedEconomySuperOver = dict(sorted(bowlerEconomySuperOver.items(), key = lambda x: x[1]))
+    print('Error : data type is not appropriate')
 
-    bestEconomyInSuperOver = dict(list(sortedEconomySuperOver.items())[0:1])
+except NameError:
 
-with open('../public/output/9-bowler-with-best-economy-in-super-overs.json', 'w') as bestEconomyInSuperOverJson:
+    print('Error: wirte the correct name')
 
-    bestEconomyInSuperOverJson.write(dumps(bestEconomyInSuperOver))
+except KeyError:
+
+    print('Error: write correct keyword')
+
+sortedEconomySuperOver = dict(sorted(bowlerEconomySuperOver.items(), key = lambda x: x[1]))
+
+bestEconomyInSuperOver = dict(list(sortedEconomySuperOver.items())[0:1])
+
+try:
+
+    with open('../public/output/9-bowler-with-best-economy-in-super-overs.json', 'w') as bestEconomyInSuperOverJson:
+        
+        bestEconomyInSuperOverJson.write(dumps(bestEconomyInSuperOver))
+
+        print('Successfully data wirtten in the output file')
+
+except FileNotFoundError:
+
+    print('Error : File path is not correct')
+
+except ValueError:
+
+    print('Error : Incorrect value of file mode')
+
+except TypeError:
+
+    print('Error : Convert the data to the str type')
+
+except AttributeError:
+
+    print('Error : write a correct method')
